@@ -1,0 +1,15 @@
+{
+    "name": "rajeevrkg/workopia",
+    "description" : "Job Listing Application",
+    "author" : [
+        {"name" : "Rajeev Kumar",
+        "email" : "rajeev.xyz.com"
+        }
+    ],
+    "autoload" : {
+        "psr-4" :{
+          "Framework\\" : "Framework/",
+          "App\\" : "App/"
+        }
+    }
+}

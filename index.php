@@ -1,4 +1,15 @@
-<?php
+<?php 
+require_once __DIR__ . '/vendor/autoload.php';
+require_once __DIR__ . "/init.php";
+use Framework\Router;
 
-require_once __DIR__ ."/init.php";
-require_once base_path('views/home.view.php');
+// Instantiating router
+$router = new Router();
+
+// get routes
+require base_path('routes.php');
+// Get current URI and HTTP method
+$uri = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
+$method = $_SERVER['REQUEST_METHOD'];
+//Route the request
+$router->route($uri,$method);
