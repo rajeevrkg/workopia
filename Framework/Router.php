@@ -10,7 +10,7 @@ class Router{
      * @param string $routes
      * @param void
      */
-    public function registerRoute($method, $uri, $action){
+    public function registerRoute($method,$uri, $action){
         list($controller, $function) = explode('@', $action);
         $this->routes[] = [
             'method' => $method,
@@ -79,14 +79,18 @@ class Router{
      * @param string $method
      * @return void
      */
-    public function route($uri,$method){
+    public function route($uri){
+        $method = $_SERVER['REQUEST_METHOD'];
         foreach($this->routes as $route){
-            if($route['uri'] === $uri && $route['method'] === $method){
-                //extract controller and controller method
+            //extract controller and controller method
+            $pattern = preg_replace('#\{[a-zA-Z0-9]+}#', '([a-zA-Z0-9]+)',$route['uri']);
+            if(preg_match('#^'. $pattern . '$#', $uri, $matches)){
+                array_shift($matches);
                 $controller = 'App\\Controllers\\' . $route['controller'];
                 $function = $route['function'];
+                $params = $matches;
                 $controllerInstace = new $controller;
-                $controllerInstace->$function();
+                call_user_func([$controllerInstace,$function], $params);
                 return;
             }
         }

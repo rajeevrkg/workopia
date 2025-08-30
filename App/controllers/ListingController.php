@@ -34,8 +34,8 @@ class ListingController{
      * Show Single Listing
      * @return void
      */
-    public function show(){
-        $id = $_GET['id'] ?? '';
+    public function show($params){
+        $id = $params[0] ?? '';
         $param = [
                 'id'=>$id
                 ];

@@ -1,7 +1,7 @@
 <?php
 loadPartials('head');
 loadPartials('nav');
-
+use App\controllers\ErrorController;
 ?>
   <?php if(!empty($list)): ?>
     <section class="container mx-auto p-4 mt-4">
@@ -26,7 +26,7 @@ loadPartials('nav');
             <?php echo $list->description ;?>
           </p>
           <ul class="my-4 bg-gray-100 p-4">
-            <li class="mb-2"><strong>Salary:</strong> <?php echo formatSalary($list->description) ;?></li>
+            <li class="mb-2"><strong>Salary:</strong> <?php echo formatSalary($list->salary) ;?></li>
             <li class="mb-2">
               <strong>Location:</strong> <?php echo $list->city .', ' . $list->state ;?>
               <span
@@ -66,7 +66,7 @@ loadPartials('nav');
       </a>
     </section>
     <?php else: ?>
-    <?php loadView('error/404'); ?>
+    <?php ErrorController::notFound("Job listing not found."); ?>
     <?php endif; ?>
 
 <?php
